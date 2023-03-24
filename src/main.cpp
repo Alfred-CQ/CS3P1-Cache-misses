@@ -17,7 +17,8 @@ int main()
         A->fill(); B->fill();
 
         auto start = std::chrono::system_clock::now();
-        C = classic_Mult(A, B);
+        //C = classic_Mult(A, B);
+        C = block_Mult(A,B);
         auto end = std::chrono::system_clock::now();
 
         std::chrono::duration<float,std::milli> duration = end - start;

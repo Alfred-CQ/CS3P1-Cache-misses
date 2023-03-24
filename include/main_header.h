@@ -17,6 +17,6 @@ typedef unsigned int        uint;
 /* Config Variables */
 
 #define MAX_RANDOM_VALUE    100
-#define BLOCK_SIZE          8
+#define BLOCK_SIZE          50
 
 #endif // !__MAIN_HEADER_H__
