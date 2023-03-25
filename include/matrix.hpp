@@ -9,9 +9,10 @@
             /* Variables */
             uint**  matrix = nullptr;
             uint    size;
+            uint    block_size;
 
            /* Constructor and Destructor*/
-            Matrix  (uint _size);
+            Matrix  (uint _size, uint _block_size = BLOCK_SIZE);
            ~Matrix  ();
 
            /** Methods **/

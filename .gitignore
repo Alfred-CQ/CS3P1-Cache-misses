@@ -31,5 +31,8 @@
 *.out
 *.app
 
+# Valgrind Results
+cachegrind.*
+
 # Folders
 .vscode/

@@ -42,3 +42,24 @@ First, 3 repetitions were carried out and the following averages were obtained
 Finally, the results are plotted to obtain a graph that indicates: with inputs less than or equal to 200 the classical multiplication performs well, the point where both methods balance is for an input of 300 and for inputs greater than 400 the block multiplication, with block size = 50, outperforms classical multiplication. 
 
 ![Performance comparison](https://i.ibb.co/NWq57k9/Performance-Comparison.png)
+
+### Analysis with valgrind and kcachegrind tools
+
+The following command is used to compile the binary file to be used by the tools:
+```
+$ make tool_test
+```
+
+## Valgrind tests
+To use Valgrind with the compiled file, use this command:
+```
+$ valgrind --tool=cachegrind bin/bin_for_valgrind 1024 64
+```
+![Example of output](https://i.ibb.co/vv0tjCT/Example-Val1024.png)
+
+## Visualization with Kcachegrind
+The cachegrind tool will generate an output .out file and the id, it can be opened through Kcachegrind or with the following command
+```
+$ kcachegrind cachegrind.out.5385      
+```
+![Example of output](https://i.ibb.co/qjdk66G/Example-Kcache1024.png)

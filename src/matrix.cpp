@@ -40,12 +40,12 @@ Matrix* block_Mult(Matrix* A, Matrix* B)
 
     Matrix* C = new Matrix(A->size);
 
-    for (ii = 0; ii < A->size; ii += BLOCK_SIZE)
-        for (jj = 0; jj < A->size; jj += BLOCK_SIZE)
-            for (kk = 0; kk < A->size; kk += BLOCK_SIZE)
-                for (i = ii; i < ii + BLOCK_SIZE; i++)
-                    for (j = jj; j < jj + BLOCK_SIZE; j++)
-                        for (k = kk; k < kk + BLOCK_SIZE; k++)
+    for (ii = 0; ii < A->size; ii += A->block_size)
+        for (jj = 0; jj < A->size; jj += A->block_size)
+            for (kk = 0; kk < A->size; kk += A->block_size)
+                for (i = ii; i < ii + A->block_size; i++)
+                    for (j = jj; j < jj + A->block_size; j++)
+                        for (k = kk; k < kk + A->block_size; k++)
                             C->matrix[i][j] += (A->matrix[i][k] * B->matrix[k][j]);
 
     return C;
@@ -53,9 +53,10 @@ Matrix* block_Mult(Matrix* A, Matrix* B)
 
 /** Class Matrix **/
 /* Constructors and Destructor */
-Matrix::Matrix(uint _size)
+Matrix::Matrix(uint _size, uint _block_size)
 {
     this->size = _size;
+    this->block_size = _block_size;
 
     this->allocate();
     this->fillZeros();

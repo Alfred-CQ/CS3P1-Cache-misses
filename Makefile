@@ -13,6 +13,7 @@ INCLUDE_DIR	=. ./include
 
 # Programs
 PROG	 = main
+PROG_VAL = bin_for_valgrind
 
 # CPP, Sources, Dependencies and Object files
 CPP_LIST = main.cpp matrix.cpp
@@ -20,8 +21,14 @@ SRC_LIST = $(patsubst %.cpp,$(SRC_DIR)/%.cpp,$(CPP_LIST))
 OBJ_LIST = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_LIST))
 DEP_LIST = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.d,$(SRC_LIST))
 
+CPP_LIST_VAL = analysis_tools.cpp matrix.cpp
+SRC_LIST_VAL = $(patsubst %.cpp,$(SRC_DIR)/%.cpp,$(CPP_LIST_VAL))
+OBJ_LIST_VAL = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_LIST_VAL))
+DEP_LIST_VAL = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.d,$(SRC_LIST_VAL))
+
 INCLUDES = $(foreach dir, $(INCLUDE_DIR), $(addprefix -I, $(dir)))
 -include $(DEP_LIST)
+-include $(DEP_LIST_VAL)
 
 # Prettier Makefile
 NO_COLOR=$(shell printf "%b" "\033[0m")
@@ -32,8 +39,15 @@ OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
 
 all: $(BIN_DIR)/$(PROG)
 
+tool_test: $(BIN_DIR)/$(PROG_VAL)
+
 $(BIN_DIR)/$(PROG): $(OBJ_LIST)
 	@echo "Linking the target $(PROG) in $(BIN_DIR)"
+	$(LD) -o $@ $^
+	@echo ""
+
+$(BIN_DIR)/$(PROG_VAL): $(OBJ_LIST_VAL)
+	@echo "Linking the target $(PROG_VAL) in $(BIN_DIR)"
 	$(LD) -o $@ $^
 	@echo ""
 
